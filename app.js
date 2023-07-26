@@ -1,17 +1,16 @@
-const express = require('express');
-const morgan = require('morgan');
+const express = require("express");
+const morgan = require("morgan");
+const path = require("path");
+const rootRouter = require("./routes/rootRoutes");
 
-const app = express('dev');
+const app = express("dev");
 
 app.use(express.json());
-app.use(morgan());
 
-app.get('/', (req, res) =>
-  res
-    .status(200)
-    .send(
-      "<h1>Hey Namaskaram🙏!</h1><h2>Server is ready to work. Let's roll!</h2>"
-    )
-);
+if (process.env.NODE_ENV === "development") app.use(morgan());
+
+app.use(express.static(path.resolve(__dirname, "public")));
+
+app.use("/api/", rootRouter);
 
 module.exports = app;

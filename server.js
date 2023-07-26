@@ -1,4 +1,9 @@
-const app = require('./app');
+const dotenv = require("dotenv");
+const app = require("./app");
+
+dotenv.config({
+	path: ".env",
+});
 
 const port = 3000;
 
